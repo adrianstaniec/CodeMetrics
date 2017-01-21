@@ -7,16 +7,18 @@ import sys          # for command line arguments
 import pandas as pd # for command line arguments
 
 def scan_file(arg):
+    """Analyzes a single file's name and content"""
     dummy, ext = os.path.splitext(arg)
     return ext
 
 def main():
+    """Main function"""
     if len(sys.argv) == 2:
         origin = sys.argv[1]
     else:
         origin = os.path.abspath('.')
 
-    ext_index = pd.Series(dtype = 'int64')
+    ext_index = pd.Series(dtype='int64')
 
     for dummy, dummy, filenames in os.walk(origin):
         for filename in filenames:
