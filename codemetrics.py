@@ -29,6 +29,6 @@ def main():
     ext_index = ext_index.sort_values(ascending=False)
 
     print("File count results:")
-    print(ext_index)
+    print(ext_index.head(n=20))
 
 main()
