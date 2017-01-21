@@ -17,5 +17,6 @@ python codemetrics.py directory_path
 
 Function | Status
 ---|---
-File count per extension | :white_check_mark:
-Line count per extension |:x:
+File count per file type | :white_check_mark:
+Line count per file type | :white_check_mark:
+Files omitted            | :x:

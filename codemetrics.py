@@ -6,10 +6,16 @@ import os           # for file access
 import sys          # for command line arguments
 import pandas as pd # for command line arguments
 
-def scan_file(arg):
+def scan_file(filepath):
     """Analyzes a single file's name and content"""
-    dummy, ext = os.path.splitext(arg)
-    return ext
+    dummy, ext = os.path.splitext(filepath)
+    lncnt = 0
+    with open(filepath) as filelines:
+        for line in filelines:
+            line = line.rstrip()
+            if line != "":
+                lncnt += 1
+    return ext, lncnt
 
 def main():
     """Main function"""
@@ -18,19 +24,22 @@ def main():
     else:
         origin = os.path.abspath('.')
 
-    ext_index = pd.Series(dtype='int64')
+    file_types = pd.Series(dtype='int64', name='Files')
+    code_lines = pd.Series(dtype='int64', name='Lines')
+    summary = pd.concat([file_types, code_lines], axis=1)
 
-    for dummy, dummy, filenames in os.walk(origin):
-        for filename in filenames:
-            ext = scan_file(filename)
+    for root, dummy, files in os.walk(origin):
+        for filename in files:
+            ext, lncnt = scan_file(os.path.join(root, filename))
             try:
-                ext_index[ext] += 1
+                summary.loc[ext] += 1, lncnt
             except KeyError:
-                ext_index[ext] = 1
+                summary.loc[ext] = 1, lncnt
 
-    ext_index = ext_index.sort_values(ascending=False)
+    summary = summary.sort_values('Files', ascending=False)
 
-    print("File count results:")
-    print(ext_index.head(n=20))
+    print("")
+    print("Summary:")
+    print(summary.head(20))
 
 main()
