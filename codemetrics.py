@@ -21,10 +21,10 @@ def main():
     for dummy, dummy, filenames in os.walk(origin):
         for filename in filenames:
             ext = scan_file(filename)
-            if ext_index.get(ext) == None:
-                ext_index[ext] = 1
-            else:
+            try:
                 ext_index[ext] += 1
+            except KeyError:
+                ext_index[ext] = 1
 
     ext_index = ext_index.sort_values(ascending=False)
 
