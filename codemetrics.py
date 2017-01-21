@@ -10,12 +10,16 @@ def scan_file(filepath):
     """Analyzes a single file's name and content"""
     dummy, ext = os.path.splitext(filepath)
     lncnt = 0
-    with open(filepath) as filelines:
-        for line in filelines:
-            line = line.rstrip()
-            if line != "":
-                lncnt += 1
-    return ext, lncnt
+    omitted = 0
+    try:
+        with open(filepath, encoding='utf-8') as filelines:
+            for line in filelines:
+                line = line.rstrip()
+                if line != "":
+                    lncnt += 1
+    except UnicodeDecodeError:
+        omitted = 1
+    return ext, lncnt, omitted
 
 def main():
     """Main function"""
@@ -30,11 +34,13 @@ def main():
     code_lines = pd.Series(dtype='int64', name='Lines')
     summary = pd.concat([file_types, code_lines], axis=1)
     summary.index.name = "File type"
+    omit_cnt = 0
 
     # Gather information
     for root, dummy, files in os.walk(origin):
         for filename in files:
-            ext, lncnt = scan_file(os.path.join(root, filename))
+            ext, lncnt, omitted = scan_file(os.path.join(root, filename))
+            omit_cnt += omitted
             try:
                 summary.loc[ext] += 1, lncnt
             except KeyError:
@@ -48,5 +54,10 @@ def main():
     print("")
     print("Summary:")
     print(summary.head(20))
+
+    if omit_cnt > 0:
+        print("")
+        print("Lines in {0} files were not counted, due to decoding problems.".format(omit_cnt))
+        print("Those are either binary files or not UTF-8 encoded.")
 
 main()
