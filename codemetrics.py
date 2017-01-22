@@ -60,4 +60,5 @@ def main():
         print("Lines in {0} files were not counted, due to decoding problems.".format(omit_cnt))
         print("Those are either binary files or not UTF-8 encoded.")
 
-main()
+if __name__ == "__main__":
+    main()
