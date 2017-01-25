@@ -11,14 +11,22 @@ def scan_file(filepath):
     dummy, ext = os.path.splitext(filepath)
     lncnt = 0
     omitted = 0
-    try:
-        with open(filepath, encoding='utf-8') as filelines:
-            for line in filelines:
-                line = line.rstrip()
-                if line != "":
-                    lncnt += 1
-    except UnicodeDecodeError:
+
+    encodings = ['utf-8', None]
+    for enc in encodings:
+        try:
+            with open(filepath, mode='r', encoding=enc) as filelines:
+            # with open(filepath) as filelines:
+                for line in filelines:
+                    line = line.rstrip()
+                    if line != "":
+                        lncnt += 1
+            break
+        except UnicodeDecodeError:
+            continue
+    else:
         omitted = 1
+
     return ext, lncnt, omitted
 
 def main():
@@ -58,7 +66,6 @@ def main():
     if omit_cnt > 0:
         print("")
         print("Lines in {0} files were not counted, due to decoding problems.".format(omit_cnt))
-        print("Those are either binary files or not UTF-8 encoded.")
 
 if __name__ == "__main__":
     main()
