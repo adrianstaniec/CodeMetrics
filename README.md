@@ -20,4 +20,6 @@ Function | Status
 File count per file type | :white_check_mark:
 Line count per file type | :white_check_mark:
 Count files omitted      | :white_check_mark:
-Support more than UTF-8  | :x:
+Support more than UTF-8  | :white_check_mark:
+Show histobar            | :white_check_mark:
+Add the simplest GUI     | :x:
