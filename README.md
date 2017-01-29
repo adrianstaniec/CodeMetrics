@@ -3,15 +3,16 @@ Run it on a folder with (unknown) source code to get to know some summary inform
 
 ## Usage
 
-### Current directory
-```bash
-python codemetrics.py
-```
-
-### On selected directory
+### Command Line Interface
 ```bash
 python codemetrics.py directory_path
 ```
+
+### Graphical user Interface
+```bash
+python codemetrics.py
+```
+*at the moment the output is still printed to the terminal
 
 ## Roadmap
 
