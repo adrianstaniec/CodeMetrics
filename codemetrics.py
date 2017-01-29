@@ -61,6 +61,7 @@ def gather_info(origin):
         for filename in files:
             ext, lncnt, omitted = scan_file(os.path.join(root, filename))
             omit_cnt += omitted
+            ext = ext.lower()
             try:
                 summary.loc[ext] += 1, lncnt
             except KeyError:
