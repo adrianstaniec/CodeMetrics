@@ -1,3 +1,4 @@
-TestFiles/
 __pycache__/
 .vscode/
+.idea/
+ignored/
