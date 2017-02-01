@@ -5,12 +5,12 @@ Run it on a folder with (unknown) source code to get to know some summary inform
 
 ### Command Line Interface
 ```bash
-python codemetrics.py directory_path
+python -m codemetrics directory_path
 ```
 
-### Graphical user Interface
+### Graphical User Interface
 ```bash
-python codemetrics.py
+python -m codemetrics
 ```
 *at the moment the output is still printed to the terminal
 
