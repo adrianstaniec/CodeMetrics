@@ -32,5 +32,5 @@ Add GUI output           | :x:
 
 Item                     | Status
 -------------------------|--------------------
-Split UI from back-end   | :x:
-Add some tests           | :x:
+Split UI from the engine | :white_check_mark:
+Add engine tests         | :x:

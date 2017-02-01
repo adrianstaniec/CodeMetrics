@@ -2,8 +2,8 @@
 Engine module for Code Metrics
 """
 
-import os           # for file access
-import pandas as pd # for data storage and manipulation
+import os
+import pandas as pd
 
 
 def scan_file(filepath):
