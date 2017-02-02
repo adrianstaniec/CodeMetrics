@@ -26,8 +26,8 @@ Count files omitted      | :white_check_mark:
 Support more than UTF-8  | :white_check_mark:
 Show textual histobar    | :white_check_mark:
 Add GUI dir selector     | :white_check_mark:
-Allow more paramters     | :x:
-Colorize the print       | :x:
+Colorize the output      | :white_check_mark:
+Allow exec. paramters    | :x:
 Add GUI output           | :x:
 
 ### Non-Functional
