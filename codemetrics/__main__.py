@@ -4,6 +4,7 @@ CodeMetrics - summarizes source codebases
 
 import os
 import sys
+import logging
 
 from codemetrics.engine import gather_info
 from codemetrics.cli import print_summary
@@ -23,6 +24,8 @@ def determine_source(args):
 
 def main():
     """Main function"""
+    logging.basicConfig(level=logging.INFO)
+
     path, project_name = determine_source(sys.argv)
     summary, omit_cnt = gather_info(path)
     print_summary(project_name, summary, omit_cnt)

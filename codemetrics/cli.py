@@ -2,8 +2,9 @@
 Command Line Interface module for Code Metrics
 """
 
-import math         # for flooring floats
-import os           # for file access
+import math
+import os
+import logging
 
 
 DEFAULT_TERMINAL_WIDTH = 80
@@ -23,13 +24,10 @@ def determine_source_dir(args):
     return origin
 
 
-def calc_scaling_factor(ser):
+def calc_scaling_factor(ser, width):
     """Calculate the factor for scaling count to bargraph"""
-    try:
-        line_width = os.get_terminal_size().columns
-    except OSError:
-        line_width = DEFAULT_TERMINAL_WIDTH
-    avail_cols = line_width - EXTENSION_STR_LEN - COUNT_STR_LEN - 2 - RIGHT_MARGIN
+    avail_cols = width  - 1 - EXTENSION_STR_LEN - 1 - COUNT_STR_LEN
+    avail_cols -= RIGHT_MARGIN
     max_val = ser.max()
     factor = 1
     if ser.max() > avail_cols:
@@ -37,31 +35,48 @@ def calc_scaling_factor(ser):
     return factor
 
 
-def print_column(ser, factor):
+def print_column(ser, width, char):
     """Print a single column"""
+    factor = calc_scaling_factor(ser, width)
     ser = ser.sort_values(ascending=False)
     cnt = 0
     for extention, count in ser.iteritems():
         print(str(extention).ljust(EXTENSION_STR_LEN),
               str(count).rjust(COUNT_STR_LEN),
-              '*' * math.floor(count * factor))
+              char * math.floor(count * factor))
         cnt += 1
         if cnt >= NUM_EXTENSION_TO_REPORT:
-            print('...')
+            print('...\n')
             break
+
+
+def determine_screen_width():
+    try:
+        terminal_columns = os.get_terminal_size().columns
+        terminal_columns = min(terminal_columns, DEFAULT_TERMINAL_WIDTH)
+    except OSError:
+        terminal_columns = DEFAULT_TERMINAL_WIDTH
+        logging.info("Terminal width couldn't be detected, "
+                     "{0} chars assumed." .format(DEFAULT_TERMINAL_WIDTH))
+    return terminal_columns
 
 
 def print_summary(project, data, omit_cnt):
     """Print summary text to output"""
-    print("\n=== Code Metrics for project {0} ===".format(project))
-    print("\nFile types:")
-    factor = calc_scaling_factor(data['Files'])
-    print_column(data['Files'], factor)
+    width = determine_screen_width()
 
-    print("\nCode lines:")
-    factor = calc_scaling_factor(data['Lines'])
-    print_column(data['Lines'], factor)
+    title = ' project "{0}" - code metrics '.format(project)
+    print('\n' + title.center(width, '_') + '\n')
+
+    print("File types:")
+    print_column(data['Files'], width, '*')
+
+    print("Code lines:")
+    print_column(data['Lines'], width, '=')
 
     if omit_cnt > 0:
-        print("")
-        print("Lines in {0} files were not counted, due to decoding problems.".format(omit_cnt))
+        print("Lines in {0} files were not counted,".format(omit_cnt),
+              "because they could not be decoded.")
+
+    print(width * '_')
+
