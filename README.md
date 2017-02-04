@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/adrsta/CodeMetrics.png?branch=master)](http://travis-ci.org/adrsta/CodeMetrics?branch=master)
+
 # CodeMetrics
 Run it on a folder with (unknown) source code to get to know some summary information about it.
 
@@ -32,7 +34,10 @@ Add GUI output           | :x:
 
 ### Non-Functional
 
-Item                     | Status
--------------------------|--------------------
-Split UI from the engine | :white_check_mark:
-Add engine tests         | :x:
+Item                        | Status
+----------------------------|--------------------
+Split UI from the engine    | :white_check_mark:
+Setup pytest                | :white_check_mark:
+Add engine tests            | :x:
+Setup Travis CI             | :white_check_mark:
+Setup Coveralls             | :x:
