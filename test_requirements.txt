@@ -1,0 +1,7 @@
+pep8
+pylint
+flake8
+pytest
+pytest-cov
+python-coveralls
+
