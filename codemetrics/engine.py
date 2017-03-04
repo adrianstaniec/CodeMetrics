@@ -6,16 +6,16 @@ import os
 import pandas as pd
 
 
-def scan_file(filepath):
+def scan_file(file_path):
     """Analyzes a single file's name and content"""
-    dummy, ext = os.path.splitext(filepath)
+    dummy, ext = os.path.splitext(file_path)
     lncnt = 0
     omitted = 0
 
     encodings = ['utf-8', None]
     for enc in encodings:
         try:
-            with open(filepath, mode='r', encoding=enc) as filelines:
+            with open(file_path, mode='r', encoding=enc) as filelines:
                 for line in filelines:
                     line = line.rstrip()
                     if line != "":
@@ -29,7 +29,7 @@ def scan_file(filepath):
     return ext, lncnt, omitted
 
 
-def gather_info(origin):
+def gather_info(dir_path):
     """Crawl the directory for stats"""
     # Prepare data structures
     file_types = pd.Series(dtype='int64', name='Files')
@@ -39,7 +39,7 @@ def gather_info(origin):
     omit_cnt = 0
 
     # Gather information
-    for root, dummy, files in os.walk(origin):
+    for root, dummy, files in os.walk(dir_path):
         for filename in files:
             ext, lncnt, omitted = scan_file(os.path.join(root, filename))
             omit_cnt += omitted
