@@ -31,7 +31,7 @@ Show textual histobar    | :white_check_mark:
 Add GUI dir selector     | :white_check_mark:
 Colorize the output      | :white_check_mark:
 Allow exec. paramters    | :x:
-Add GUI output           | :x:
+Add GUI output           | :construction:
 
 ### Non-Functional
 
@@ -39,6 +39,6 @@ Item                        | Status
 ----------------------------|--------------------
 Split UI from the engine    | :white_check_mark:
 Setup pytest                | :white_check_mark:
-Add engine tests            | :x:
+Add engine tests            | :construction:
 Setup Travis CI             | :white_check_mark:
 Setup Coveralls             | :white_check_mark:
