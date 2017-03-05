@@ -8,14 +8,13 @@ Run it on a folder with (unknown) source code to get to know some summary inform
 
 ### Command Line Interface
 ```bash
-python -m codemetrics directory_path
+python -m codemetrics -t [-p directory_path]
 ```
 
 ### Graphical User Interface
 ```bash
-python -m codemetrics
+python -m codemetrics [-p directory_path]
 ```
-*at the moment the output is still printed to the terminal
 
 ## Roadmap
 
@@ -30,8 +29,9 @@ Support more than UTF-8  | :white_check_mark:
 Show textual histobar    | :white_check_mark:
 Add GUI dir selector     | :white_check_mark:
 Colorize the output      | :white_check_mark:
-Allow exec. paramters    | :x:
-Add GUI output           | :construction:
+Allow exec. parameters   | :white_check_mark:
+Add GUI output           | :white_check_mark:
+Improve plots            | :x:
 
 ### Non-Functional
 
@@ -39,6 +39,8 @@ Item                        | Status
 ----------------------------|--------------------
 Split UI from the engine    | :white_check_mark:
 Setup pytest                | :white_check_mark:
-Add engine tests            | :construction:
+Fix tests                   | :x:
+Increase coverage           | :x:
 Setup Travis CI             | :white_check_mark:
 Setup Coveralls             | :white_check_mark:
+Improve start-up time       | :x:

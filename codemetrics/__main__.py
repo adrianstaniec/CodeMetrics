@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 CodeMetrics - summarizes source codebases
 """
@@ -5,31 +6,41 @@ CodeMetrics - summarizes source codebases
 import os
 import sys
 import logging
+import argparse
 
-from codemetrics.engine import gather_info
-from codemetrics.cli import print_summary
-from codemetrics.gui import ask_for_source_dir
+from PyQt5 import QtWidgets
+
+from codemetrics import engine
+from codemetrics import cli
+from codemetrics import gui
 
 
-def determine_source(args):
-    """Determine source code directory path"""
-    path = ''
-    if len(args) == 2:
-        path = args[1]
-    else:
-        path = ask_for_source_dir(sys.argv)
+def main_cli(path=None):
+    if path is None:
+        path = input("Provide path with code base location: ")
     project_name = path.split(os.sep)[-1]
-    return path, project_name
+    summary, omit_cnt = engine.gather_info(path)
+    cli.print_summary(project_name, summary, omit_cnt)
 
 
-def main():
-    """Main function"""
-    logging.basicConfig(level=logging.INFO)
-
-    path, project_name = determine_source(sys.argv)
-    summary, omit_cnt = gather_info(path)
-    print_summary(project_name, summary, omit_cnt)
+def main_gui(path=None):
+    qApp = QtWidgets.QApplication(sys.argv)
+    aw = gui.AppWin(path)
+    aw.show()
+    sys.exit(qApp.exec_())
 
 
 if __name__ == "__main__":
-    main()
+    logging.basicConfig(level=logging.INFO)
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument("-p", "--path", type=str, default=None,
+                        help="Path to code base directory")
+    parser.add_argument("-t", "--text-mode", action="store_true",
+                        help="Use CLI, not the GUI.")
+    args = parser.parse_args()
+
+    if args.text_mode:
+        main_cli(args.path)
+    else:
+        main_gui(args.path)
