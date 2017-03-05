@@ -7,21 +7,12 @@ import os
 import logging
 import colorama
 
+
 DEFAULT_TERMINAL_WIDTH = 80
-EXTENSION_STR_LEN = 7
+EXTENSION_STR_LEN = 10
 COUNT_STR_LEN = 7
 RIGHT_MARGIN = 1
 NUM_EXTENSION_TO_REPORT = 10
-
-
-def determine_source_dir(args):
-    """Determine source code directory path"""
-    origin = ''
-    if len(args) == 2:
-        origin = args[1]
-    else:
-        origin = os.path.abspath('.')
-    return origin
 
 
 def determine_screen_width():
@@ -31,7 +22,7 @@ def determine_screen_width():
     except OSError:
         terminal_columns = DEFAULT_TERMINAL_WIDTH
         logging.info("Terminal width couldn't be detected, "
-                     "{0} chars assumed." .format(DEFAULT_TERMINAL_WIDTH))
+                     "{0} chars assumed.".format(DEFAULT_TERMINAL_WIDTH))
     return terminal_columns
 
 
@@ -42,7 +33,7 @@ def assign_colors(keys):
                     colorama.Fore.WHITE, colorama.Fore.MAGENTA,
                     colorama.Fore.BLUE]
     for counter, key in enumerate(keys):
-        color_map[key] = avail_colors[(counter) % len(avail_colors)]
+        color_map[key] = avail_colors[counter % len(avail_colors)]
     return color_map
 
 
@@ -57,7 +48,7 @@ def print_title(project, width):
 
 def calc_scaling_factor(ser, width):
     """Calculate the factor for scaling count to bargraph"""
-    avail_cols = width  - 1 - EXTENSION_STR_LEN - 1 - COUNT_STR_LEN
+    avail_cols = width - 1 - EXTENSION_STR_LEN - 1 - COUNT_STR_LEN
     avail_cols -= RIGHT_MARGIN
     max_val = ser.max()
     factor = 1
@@ -75,7 +66,7 @@ def print_column(ser, width, char, color_map=None):
         line = str(extension).ljust(EXTENSION_STR_LEN)
         line += ' ' + str(count).rjust(COUNT_STR_LEN)
         line += ' ' + char * math.floor(count * factor)
-        if color_map != None:
+        if color_map is not None:
             line = color_map[extension] + line + colorama.Fore.RESET
         print(line)
         cnt += 1
@@ -92,7 +83,7 @@ def print_summary(project, data, omit_cnt, colorful=True):
     print_title(project, width)
 
     if colorful:
-        data = data.sort_index().sort_values('Files',ascending=False)
+        data = data.sort_index().sort_values('Files', ascending=False)
         color_map = assign_colors(data.index)
     else:
         color_map = None
