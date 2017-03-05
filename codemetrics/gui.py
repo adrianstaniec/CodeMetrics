@@ -63,8 +63,7 @@ class AppWin(QtWidgets.QMainWindow):
         self.main_widget.setFocus()
         self.setCentralWidget(self.main_widget)
 
-        project_name = self.open_dir(path)
-        self.setWindowTitle(f"CodeMetrics - project \"{project_name}\"")
+        self.open_dir(path)
 
     def open_dir(self, path=None):
         if path is None:
@@ -74,7 +73,8 @@ class AppWin(QtWidgets.QMainWindow):
             path = os.path.abspath(qpath)
         df, _ = engine.gather_info(os.path.abspath(path))
         self.sc.update_plot(df)
-        return path.split(os.sep)[-1]
+        project_name = path.split(os.sep)[-1]
+        self.setWindowTitle(f"CodeMetrics - project \"{project_name}\"")
 
     def about(self):
         astr = "This is CodeMetrics by adrsta"
