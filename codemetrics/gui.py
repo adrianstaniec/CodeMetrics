@@ -3,27 +3,26 @@ Graphical User Interface module for Code Metrics
 """
 
 import os
-import pandas as pd
 
 import matplotlib
 matplotlib.use('Qt5Agg')
 from PyQt5 import QtCore, QtWidgets
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigCanvas
 from matplotlib.figure import Figure
 
 from codemetrics import engine
 
 
-class MyMplCanvas(FigureCanvas):
+class MyMplCanvas(FigCanvas):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
         fig = Figure(figsize=(width, height), dpi=dpi)
         self.axes0 = fig.add_subplot(211)
         self.axes1 = fig.add_subplot(212)
-        FigureCanvas.__init__(self, fig)
+        FigCanvas.__init__(self, fig)
         self.setParent(parent)
-        FigureCanvas.setSizePolicy(self, QtWidgets.QSizePolicy.Expanding,
-                                   QtWidgets.QSizePolicy.Expanding)
-        FigureCanvas.updateGeometry(self)
+        FigCanvas.setSizePolicy(self, QtWidgets.QSizePolicy.Expanding,
+                                QtWidgets.QSizePolicy.Expanding)
+        FigCanvas.updateGeometry(self)
 
     def update_plot(self, df):
         df = df.sort_index().sort_values('Files', ascending=False)

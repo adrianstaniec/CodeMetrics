@@ -39,8 +39,8 @@ Item                        | Status
 ----------------------------|--------------------
 Split UI from the engine    | :white_check_mark:
 Setup pytest                | :white_check_mark:
-Fix tests                   | :x:
-Increase coverage           | :x:
+Fix tests                   | :white_check_mark:
+Increase coverage           | :construction:
 Setup Travis CI             | :white_check_mark:
 Setup Coveralls             | :white_check_mark:
 Improve start-up time       | :x:
