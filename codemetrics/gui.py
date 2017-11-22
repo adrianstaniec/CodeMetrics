@@ -73,7 +73,7 @@ class AppWin(QtWidgets.QMainWindow):
         df, _ = engine.gather_info(os.path.abspath(path))
         self.sc.update_plot(df)
         project_name = path.split(os.sep)[-1]
-        self.setWindowTitle(f"CodeMetrics - project \"{project_name}\"")
+        self.setWindowTitle("CodeMetrics - project \"{}\"".format(project_name))
 
     def about(self):
         astr = "This is CodeMetrics by adrsta"
