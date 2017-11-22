@@ -55,9 +55,9 @@ class AppWin(QtWidgets.QMainWindow):
 
         self.main_widget = QtWidgets.QWidget(self)
 
-        l = QtWidgets.QVBoxLayout(self.main_widget)
+        layout = QtWidgets.QVBoxLayout(self.main_widget)
         self.sc = MyMplCanvas(self.main_widget)
-        l.addWidget(self.sc)
+        layout.addWidget(self.sc)
 
         self.main_widget.setFocus()
         self.setCentralWidget(self.main_widget)
@@ -76,7 +76,7 @@ class AppWin(QtWidgets.QMainWindow):
         df, _ = engine.gather_info(os.path.abspath(path))
         self.sc.update_plot(df)
         project_name = path.split(os.sep)[-1]
-        self.setWindowTitle("CodeMetrics - project \"{}\"".format(project_name))
+        self.setWindowTitle("\"{}\" - code metrics".format(project_name))
 
     def about(self):
         astr = "This is CodeMetrics by adrsta"

@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/adrsta/CodeMetrics.png?branch=master)](http://travis-ci.org/adrsta/CodeMetrics?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/adrsta/CodeMetrics/badge.svg?branch=master)](https://coveralls.io/github/adrsta/CodeMetrics?branch=master)
+[![Build Status](https://travis-ci.org/adrianstaniec/CodeMetrics.png?branch=master)](http://travis-ci.org/adrianstaniec/CodeMetrics?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/adrianstaniec/CodeMetrics/badge.svg?branch=master)](https://coveralls.io/github/adrianstaniec/CodeMetrics?branch=master)
 
 # CodeMetrics
 Run it on a folder with (unknown) source code to get to know some summary information about it.
