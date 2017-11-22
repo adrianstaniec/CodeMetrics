@@ -70,6 +70,9 @@ class AppWin(QtWidgets.QMainWindow):
             qpath = QtWidgets.QFileDialog.getExistingDirectory(None,
                                                                window_title)
             path = os.path.abspath(qpath)
+
+        if path[-1] == os.sep:
+            path = path[:-1]
         df, _ = engine.gather_info(os.path.abspath(path))
         self.sc.update_plot(df)
         project_name = path.split(os.sep)[-1]

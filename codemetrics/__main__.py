@@ -18,7 +18,7 @@ from codemetrics import gui
 def main_cli(path=None):
     if path is None:
         path = input("Provide path with code base location: ")
-    if path[-1] == '/':
+    if path[-1] == os.sep:
         path = path[:-1]
     project_name = path.split(os.sep)[-1]
     summary, omit_cnt = engine.gather_info(path)
